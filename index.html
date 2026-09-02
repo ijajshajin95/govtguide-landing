@@ -415,7 +415,7 @@
           <svg viewBox="0 0 24 24" fill="none"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5Z" fill="#00D2FF"/><path d="M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12Z" fill="#00F076"/><path d="M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81Z" fill="#FFCC00"/><path d="M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" fill="#FF3A44"/></svg>
           Google Play থেকে ইনস্টল করুন
         </a>
-        <button class="ios-btn ios-btn-trigger" type="button" onclick="document.getElementById('guideModal').style.display='flex';">
+        <button class="ios-btn ios-btn-trigger" type="button" onclick="openGuideModal();">
           📱 iPhone / iPad-এর জন্য
         </button>
         <span class="free-tag">কোনো টাকা লাগবে না, কোনো অ্যাকাউন্টও লাগবে না</span>
@@ -558,7 +558,7 @@
       <svg viewBox="0 0 24 24" fill="none"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5Z" fill="#00D2FF"/><path d="M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12Z" fill="#00F076"/><path d="M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81Z" fill="#FFCC00"/><path d="M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" fill="#FF3A44"/></svg>
       Google Play থেকে ইনস্টল করুন
     </a>
-    <button class="ios-btn ios-btn-trigger" type="button" onclick="document.getElementById('guideModal').style.display='flex';">
+    <button class="ios-btn ios-btn-trigger" type="button" onclick="openGuideModal();">
       📱 iPhone / iPad-এর জন্য
     </button>
     </div>
@@ -577,14 +577,14 @@
     <svg viewBox="0 0 24 24" fill="none"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5Z" fill="#00D2FF"/><path d="M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12Z" fill="#00F076"/><path d="M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81Z" fill="#FFCC00"/><path d="M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" fill="#FF3A44"/></svg>
     ইনস্টল করুন
   </a>
-  <button class="ios-btn ios-btn-trigger" type="button" onclick="document.getElementById('guideModal').style.display='flex';">
+  <button class="ios-btn ios-btn-trigger" type="button" onclick="openGuideModal();">
     📱 iPhone / iPad
   </button>
 </div>
 
-<div class="guide-modal-overlay" id="guideModal" onclick="if(event.target===this) this.style.display='none';">
+<div class="guide-modal-overlay" id="guideModal" onclick="if(event.target===this) closeGuideModal();">
   <div class="guide-modal-box">
-    <button class="guide-modal-close" onclick="document.getElementById('guideModal').style.display='none'">✕</button>
+    <button class="guide-modal-close" onclick="closeGuideModal();">✕</button>
     <div class="guide-modal-scroll">
       <div class="gm-page">
         <div class="gm-blob gm-blob1"></div>
@@ -708,6 +708,26 @@
     document.getElementById('inAppBanner').style.display = 'block';
   }
 })();
+
+var _lockedScrollY = 0;
+function openGuideModal(){
+  _lockedScrollY = window.scrollY || window.pageYOffset || 0;
+  document.body.style.position = 'fixed';
+  document.body.style.top = (-_lockedScrollY) + 'px';
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.body.style.width = '100%';
+  document.getElementById('guideModal').style.display = 'flex';
+}
+function closeGuideModal(){
+  document.getElementById('guideModal').style.display = 'none';
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  document.body.style.width = '';
+  window.scrollTo(0, _lockedScrollY);
+}
 </script>
 
 </body>
